@@ -85,7 +85,11 @@ public class SaInterceptor implements HandlerInterceptor {
 	// ----------------- 验证方法 ----------------- 
 
 	/**
-	 * 每次请求之前触发的方法 
+	 * 每次请求之前触发的方法
+	 * <p>
+	 * 注意：异步请求的收尾派发（DispatcherType.ASYNC）在已持有并发结果时会整体跳过本方法，
+	 * 即通过 {@link #setBeforeAuth} / {@link #setAuth} 注入的自定义鉴权逻辑在该次派发中也不会执行；
+	 * 若有关键逻辑需要每次派发都执行，请勿只挂在这里。
 	 */
 	@Override
 	@SuppressWarnings("all")
